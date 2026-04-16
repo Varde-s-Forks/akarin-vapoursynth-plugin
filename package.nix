@@ -6,6 +6,7 @@
   ninja,
   pkg-config,
   libllvm,
+  lld,
   libxml2,
   uv
 }:
@@ -36,12 +37,14 @@ stdenv.mkDerivation (finalAttrs: {
     meson
     ninja
     pkg-config
+    lld
   ];
 
   buildInputs =
     [
       libllvm
       libxml2
+      stdenv.cc.cc.lib
     ]
     # `std::to_chars()` for floating-point types was introduced in macOS 13.3.
     # But then `darwinMinVersionHook "13.0"` yields "error: 'from_chars' is

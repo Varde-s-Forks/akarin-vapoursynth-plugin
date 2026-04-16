@@ -22,6 +22,16 @@ class CustomHook(BuildHookInterface[Any]):
         build_data["tag"] = f"py3-none-{next(tags.platform_tags())}"
 
         meson_args = shlex.split(os.getenv("MESON_ARGS", ""))
+        # Db_lto=true -Dcpp_link_args="-fuse-ld=lld"
+        # meson_args.append("-Db_lto=true")
+        meson_args.append('-Dcpp_link_args=-fuse-ld=lld')
+        meson_args.append('-Dc_link_args=-fuse-ld=lld')
+
+#   mesonFlags = [
+#     "-Db_lto=true"
+#     "-Dcpp_link_args=-fuse-ld=lld"
+#     "-Dc_link_args=-fuse-ld=lld"
+#   ]
 
         subprocess.run([sys.executable, "-m", "mesonbuild.mesonmain", "setup", "build", *meson_args], check=True)
         subprocess.run([sys.executable, "-m", "mesonbuild.mesonmain", "compile", "-C", "build"], check=True)
