@@ -7,7 +7,7 @@
   pkg-config,
   libllvm,
   libxml2,
-  vapoursynth,
+  uv
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "akarin";
@@ -42,17 +42,11 @@ stdenv.mkDerivation (finalAttrs: {
     [
       libllvm
       libxml2
-      vapoursynth
     ]
     # `std::to_chars()` for floating-point types was introduced in macOS 13.3.
     # But then `darwinMinVersionHook "13.0"` yields "error: 'from_chars' is
     # unavailable: introduced in macOS 26.0".
     ++ lib.optional stdenv.hostPlatform.isDarwin (darwinMinVersionHook "26.0");
-
-  postPatch = ''
-    substituteInPlace meson.build \
-      --replace-fail "vapoursynth_dep.get_pkgconfig_variable('libdir')" "get_option('libdir')"
-  '';
 
   meta = {
     homepage = "https://github.com/Jaded-Encoding-Thaumaturgy/akarin-vapoursynth-plugin";
