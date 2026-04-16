@@ -15,9 +15,9 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in {
         packages = rec {
-          llvm_20 = pkgs.callPackage ./package.nix {libllvm = pkgs.llvmPackages_20.libllvm;};
-          llvm_21 = pkgs.callPackage ./package.nix {libllvm = pkgs.llvmPackages_21.libllvm;};
-          llvm_22 = pkgs.callPackage ./package.nix {libllvm = pkgs.llvmPackages_22.libllvm;};
+          llvm_20 = let lp = pkgs.llvmPackages_20; in pkgs.callPackage ./package.nix {inherit (lp) libllvm stdenv;};
+          llvm_21 = let lp = pkgs.llvmPackages_21; in pkgs.callPackage ./package.nix {inherit (lp) libllvm stdenv;};
+          llvm_22 = let lp = pkgs.llvmPackages_22; in pkgs.callPackage ./package.nix {inherit (lp) libllvm stdenv;};
           default = llvm_22;
         };
 
