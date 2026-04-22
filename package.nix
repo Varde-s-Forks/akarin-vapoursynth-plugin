@@ -77,7 +77,7 @@ buildPythonPackage {
     vapoursynth
   ];
 
-  env.MESON_ARGS = lib.optionalString withBoostCharconv "-Dboost-charconv=true";
+  env.MESON_ARGS = lib.optionalString withBoostCharconv "-Dboost-charconv=true -Dprefer_static=true";
 
   buildInputs =
     [
