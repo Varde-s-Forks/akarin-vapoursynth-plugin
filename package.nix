@@ -67,9 +67,6 @@ buildPythonPackage {
     libllvm.dev
     libxml2.dev
     pkg-config
-  ];
-
-  build-system = [
     hatchling
     meson
     ninja

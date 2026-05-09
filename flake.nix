@@ -57,9 +57,24 @@
         extraArgs = if isLinux then {darwinMinVersionHook = _: null;} else {};
       in {
         packages = rec {
-          llvm_20 = pkgs.python3Packages.callPackage ./package.nix ({libllvm = makeLLVM unstable.llvmPackages_20;} // extraArgs);
-          llvm_21 = pkgs.python3Packages.callPackage ./package.nix ({libllvm = makeLLVM unstable.llvmPackages_21;} // extraArgs);
-          llvm_22 = pkgs.python3Packages.callPackage ./package.nix ({libllvm = makeLLVM unstable.llvmPackages_22;} // extraArgs);
+          llvm_20 = pkgs.python3Packages.callPackage ./package.nix ({
+              libllvm = makeLLVM unstable.llvmPackages_20;
+              hatchling = unstable.python3Packages.hatchling;
+              packaging = unstable.python3Packages.packaging;
+            }
+            // extraArgs);
+          llvm_21 = pkgs.python3Packages.callPackage ./package.nix ({
+              libllvm = makeLLVM unstable.llvmPackages_21;
+              hatchling = unstable.python3Packages.hatchling;
+              packaging = unstable.python3Packages.packaging;
+            }
+            // extraArgs);
+          llvm_22 = pkgs.python3Packages.callPackage ./package.nix ({
+              libllvm = makeLLVM unstable.llvmPackages_22;
+              hatchling = unstable.python3Packages.hatchling;
+              packaging = unstable.python3Packages.packaging;
+            }
+            // extraArgs);
           default = llvm_22;
         };
 
